@@ -17,7 +17,7 @@ export default function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault()
     
-    if(errorMsg == ''){
+    if(errorMsg == '' && email != '' && phone != '' && password != ''){
       firebase.auth().createUserWithEmailAndPassword(email,password).then((result) => {
         result.user.updateProfile({displayName:username}).then(() => {
           firebase.firestore().collection('user').add({
@@ -33,6 +33,8 @@ export default function Signup() {
       }).catch((err) =>{
         setErrorMsg(err.message)
       })
+    }else{
+      setErrorMsg('Field is required')
     }
   }
 

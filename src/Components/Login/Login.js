@@ -13,11 +13,16 @@ function Login() {
   const history = useHistory()
   const handleLogin = (e) => {
     e.preventDefault()
-    firebase.auth().signInWithEmailAndPassword(email,password).then(() => {
-      history.push('/')
-    }).catch((err) => {
-      setErrorMsg(err.message)
-    })
+    if(email!= '' && password != ''){
+
+      firebase.auth().signInWithEmailAndPassword(email,password).then(() => {
+        history.push('/')
+      }).catch((err) => {
+        setErrorMsg(err.message)
+      })
+    }else{
+      setErrorMsg('Field is required')
+    }
   }
 
   return (
