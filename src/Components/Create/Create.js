@@ -16,19 +16,23 @@ const Create = () => {
   const history = useHistory()
 
   const handleSubmit = () => {
-      firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref}) => {
-        ref.getDownloadURL().then((url) => {
-          firebase.firestore().collection('products').add({
-            name,
-            category,
-            price,
-            url,
-            userId:user.uid,
-            createAt:date.toDateString()
+      if(errorMsg == '' && name != '' && category != '' && price != ''){
+        firebase.storage().ref(`/image/${image.name}`).put(image).then(({ref}) => {
+          ref.getDownloadURL().then((url) => {
+            firebase.firestore().collection('products').add({
+              name,
+              category,
+              price,
+              url,
+              userId:user.uid,
+              createAt:date.toDateString()
+            })
+            history.push('/')
           })
-          history.push('/')
         })
-      })
+      }else{
+        setErrorMsg('Field is required')
+      }
   }
 
   return (

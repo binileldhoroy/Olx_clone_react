@@ -22,14 +22,19 @@ function Header() {
       title: "Are you sure?",
       text: "Are you sure that you want to leave this page?",
       icon: "warning",
+      buttons: true,
       dangerMode: true,
     })
-    .then(willDelete => {
+    .then((willDelete) => {
       if (willDelete) {
+        
+        swal("You successfully Logout", {
+          icon: "success",
+        });
         firebase.auth().signOut()
         history.push('/login')
-      }
-    }); 
+      } 
+    });
   }
 
   return (
